@@ -7,4 +7,3 @@ It aims to be fully standard-compliant if a standard is ever written for the lan
 ```
 $ git clone https://github.com/ThisIsMyNick/GPSLi.git
 ```
-```
