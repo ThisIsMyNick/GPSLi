@@ -37,72 +37,54 @@ precedence = (
 )
 
 #TODO: better way to separate statements? or nah
-def p_semicolon(p):
-    '''expression : expression SEMICOLON expression
-                  | expression SEMICOLON'''
-    pass
+def p_expr_semi(p):
+    '''statement : expression SEMICOLON'''
+    p[0] = ('Statement', p[1])
+
+def p_state_state(p):
+    '''statement : statement statement''' #lhs is statement so it can recurse
+    p[0] = ('Statements', p[1], p[2])
 
 def p_binop_arithmetic(p):
     '''expression : expression PLUS expression
                   | expression DASH expression
                   | expression STAR expression
                   | expression SLASH expression'''
-    if   p[2] == '+': p[0] = p[1] + p[3]
-    elif p[2] == '-': p[0] = p[1] - p[3]
-    elif p[2] == '*': p[0] = p[1] * p[3]
-    elif p[2] == '/': p[0] = p[1] / p[3]
+    if   p[2] == '+': p[0] = ('Add',        p[1], p[3])
+    elif p[2] == '-': p[0] = ('Subtract',   p[1], p[3])
+    elif p[2] == '*': p[0] = ('Multiply',   p[1], p[3])
+    elif p[2] == '/': p[0] = ('Divide',     p[1],  p[3])
 
 ### Pre/Post Inc/Dec
 
 def p_preinc(p):
     '''expression : PLUS PLUS ID'''
-    oldval = get_val(p[3])
-    assign(p[3], oldval + 1)
-    p[0] = oldval + 1
+    p[0] = ('PreInc', p[3])
 
 def p_predec(p):
     '''expression : DASH DASH ID'''
-    oldval = get_val(p[3])
-    assign(p[3], oldval - 1)
-    p[0] = oldval - 1
-
-"""
-#these dont work, idk why. parser errors out.
-def p_postinc(p):
-    '''expression : ID PLUS PLUS'''
-    oldval = get_val(p[1])
-    assign(p[1], oldval + 1)
-    p[0] = oldval
-
-def p_postdec(p):
-    '''expression : ID DASH DASH'''
-    oldval = get_val(p[1])
-    assign(p[1], oldval - 1)
-    p[0] = oldval
-"""
+    p[0] = ('PreDec', p[3])
 
 ### Literals
 
 def p_expression(p):
     '''expression : INT
                   | FLOAT'''
-    p[0] = p[1]
+    p[0] = ('NumToExpr', p[1])
 
 ### ID
 
 def p_expr_id(p):
     '''expression : ID'''
-    p[0] = get_val(p[1])
+    p[0] = ('IDToExpr', p[1])
 
 def p_expr_assign(p):
     '''expression : ID ASSIGN expression'''
-    assign(p[1], p[3])
-    p[0] = p[3]
+    p[0] = ('Assign', p[1], p[3])
 
 def p_print(p):
     '''expression : PRINT expression'''
-    print p[2]
-    p[0] = p[2]
+    p[0] = ('Print', p[2])
 
 def p_error(p):
     if p:

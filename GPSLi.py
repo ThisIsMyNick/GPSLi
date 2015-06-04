@@ -5,6 +5,7 @@ import ply.yacc as yacc
 
 import tokenrules
 import grammar
+import analyzer
 tokens = tokenrules.tokens
 
 import sys
@@ -16,7 +17,8 @@ def main(filename):
     code = ""
     with open(filename) as f:
         code = f.read()
-    parser.parse(code)
+    ast = parser.parse(code)
+    analyzer.execute(ast)
 
 if __name__ == '__main__':
     if len(sys.argv) > 1:
