@@ -8,6 +8,8 @@ tokens = (
         'DASH',
         'STAR',
         'SLASH',
+        'ASSIGN',
+        'ID',
         'FLOAT',
         'INT',
         'PRINT',
@@ -18,7 +20,7 @@ t_PLUS = r'\+'
 t_DASH = r'-'
 t_STAR = r'\*'
 t_SLASH = r'/'
-t_PRINT = r'print' #TODO: Use a dict of reserved keywords
+t_ASSIGN = r'='
 t_SEMICOLON = r';'
 
 def t_FLOAT(t):
@@ -29,6 +31,11 @@ def t_FLOAT(t):
 def t_INT(t):
     r'\d+'
     t.value = int(t.value)
+    return t
+
+def t_ID(t):
+    r'[a-zA-Z_][a-zA-Z0-9?]*'
+    t.type = reserved.get(t.value, 'ID')
     return t
 
 t_ANY_ignore = ' \n\t\f\v'
