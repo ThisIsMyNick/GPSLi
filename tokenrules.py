@@ -1,3 +1,4 @@
+#TODO: rename token names to be less generic. eg, MINUS rather than DASH.
 
 reserved = {
         'print' : 'PRINT',

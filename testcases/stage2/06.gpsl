@@ -1,0 +1,6 @@
+a = 1336;
+print a+1;
+print a = a+1;
+print ++a - 1;
+print a = --a;
+print 1 + --a;
