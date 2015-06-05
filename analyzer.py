@@ -1,6 +1,7 @@
 scopes = [{}]
 
 def get_val(key):
+    if isinstance(key, int) or isinstance(key, float): return key
     for scope in reversed(scopes):
         if key in scope:
             return scope[key]
@@ -55,4 +56,19 @@ def execute(ast):
     if ast[0] == 'Print':
         print execute(ast[1])
         return
+    if ast[0] == 'If':
+        if execute(ast[1]) == True: #disallow implicit crap.
+            return execute(ast[2])
+        return
+    if ast[0] == 'IfElse':
+        if execute(ast[1]) == True:
+            return execute(ast[2])
+        else:
+            return execute(ast[3])
+    if ast[0]=='EQ': return get_val(execute(ast[1])) == get_val(execute(ast[2]))
+    if ast[0]=='NE': return get_val(execute(ast[1])) != get_val(execute(ast[2]))
+    if ast[0]=='GT': return get_val(execute(ast[1])) >  get_val(execute(ast[2]))
+    if ast[0]=='GE': return get_val(execute(ast[1])) >= get_val(execute(ast[2]))
+    if ast[0]=='LT': return get_val(execute(ast[1])) <  get_val(execute(ast[2]))
+    if ast[0]=='LE': return get_val(execute(ast[1])) <= get_val(execute(ast[2]))
     print "Unexpected node:", ast
