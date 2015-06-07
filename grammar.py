@@ -90,6 +90,24 @@ def p_state_for(p):
     '''statement : FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN LBRACE statement RBRACE'''
     p[0] = ('For', p[3], p[5], p[7], p[10])
 
+### Lists
+
+def p_expr_list(p):
+    '''expression : LBRACKET list-items RBRACKET'''
+    p[0] = ('List', p[2])
+
+def p_listitems(p):
+    '''list-items : expression COMMA expression'''
+    p[0] = ('ListItems', p[1], p[3])
+
+def p_listitem(p):
+    '''list-items : expression'''
+    p[0] = ('ListItem', p[1])
+
+def p_listitems_null(p):
+    '''list-items : '''
+    p[0] = ('NullListItem',)
+
 ### Pre/Post Inc/Dec
 
 def p_preinc(p):

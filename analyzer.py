@@ -53,6 +53,14 @@ def execute(ast):
         return execute(ast[1])
     if ast[0] == 'IDToExpr':
         return get_val(execute(ast[1]))
+    if ast[0] == 'List':
+        return execute(ast[1])
+    if ast[0] == 'ListItems':
+        return [execute(ast[1]), execute(ast[2])]
+    if ast[0] == 'ListItem':
+        return [execute(ast[1])]
+    if ast[0] == 'NullListItem':
+        return []
     if ast[0] == 'Assign':
         val = execute(ast[2])
         assign(ast[1], val)
@@ -61,12 +69,10 @@ def execute(ast):
         print execute(ast[1])
         return
     if ast[0] == 'If':
-        #print "in If", ast
         if execute(ast[1]) == True: #disallow implicit crap.
             return execute(ast[2])
         return
     if ast[0] == 'IfElse':
-        #print "in IfElse", ast
         if execute(ast[1]) == True:
             return execute(ast[2])
         else:
