@@ -66,16 +66,25 @@ def p_compare(p):
     elif p[2] == '!=': p[0] = ('NE', p[1], p[3])
     elif p[2] == '>':  p[0] = ('GT', p[1], p[3])
     elif p[2] == '>=': p[0] = ('GE', p[1], p[3])
-    elif p[2] == '>':  p[0] = ('LT', p[1], p[3])
+    elif p[2] == '<':  p[0] = ('LT', p[1], p[3])
     elif p[2] == '<=': p[0] = ('LE', p[1], p[3])
+
+### Conditional
 
 def p_state_if(p):
     '''statement : IF LPAREN expression RPAREN LBRACE statement RBRACE'''
     p[0] = ('If', p[3], p[6])
 
+
 def p_state_ifelse(p):
     '''statement : IF LPAREN expression RPAREN LBRACE statement RBRACE ELSE LBRACE statement RBRACE'''
     p[0] = ('IfElse', p[3], p[6], p[10])
+
+### Loop
+
+def p_state_while(p):
+    '''statement : WHILE LPAREN expression RPAREN LBRACE statement RBRACE'''
+    p[0] = ('While', p[3], p[6])
 
 ### Pre/Post Inc/Dec
 

@@ -1,9 +1,11 @@
 #TODO: rename token names to be less generic. eg, MINUS rather than DASH.
+#TODO: use a literals[] list
 
 reserved = {
         'print' : 'PRINT',
         'if' : 'IF',
         'else' : 'ELSE',
+        'while' : 'WHILE',
 }
 
 tokens = (
@@ -24,6 +26,7 @@ tokens = (
         'PRINT',
         'IF',
         'ELSE',
+        'WHILE',
         'SEMICOLON',
         'LPAREN',
         'RPAREN',

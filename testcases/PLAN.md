@@ -5,8 +5,8 @@ No plans to support conditional jumps anymore.
 
 - [x] Stage 1
 - [x] Stage 2
-- [ ] Stage 3
-- [ ] Stage 4
+- [x] Stage 3
+- [x] Stage 4
 - [ ] Stage 5
 - [ ] Stage 6
 - [ ] Stage 7
@@ -18,13 +18,13 @@ Stage 1 is basic math (with proper precedence rules) and printing support.
 Stage 2 supports variables.
 
 #Stage 3
-Stage 3 supports lists or a similar simple data structure.
+Stage 3 supports high-level conditional statements.
 
 #Stage 4
-Stage 4 supports high-level conditional statements.
+Stage 4 supports high-level looping constructs.
 
 #Stage 5
-Stage 5 supports high-level looping constructs.
+Stage 5 supports lists or a similar simple data structure.
 
 #Stage 6
 Stage 6 supports high-level functions.

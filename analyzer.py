@@ -1,11 +1,15 @@
 scopes = [{}]
 
 def get_val(key):
-    if isinstance(key, int) or isinstance(key, float): return key
-    for scope in reversed(scopes):
-        if key in scope:
-            return scope[key]
-    raise KeyError("%s not in scope" % key)
+    def det():
+        if isinstance(key, (int, long, float)): return key
+        for scope in reversed(scopes):
+            if key in scope:
+                return scope[key]
+        raise KeyError("%s not in scope" % key)
+    a = det()
+    #print "out get_val(%s): %d" % (key, a)
+    return a
 
 def assign(key, val):
     for index, scope in enumerate(reversed(scopes)):
@@ -25,8 +29,8 @@ def PreDec(x):
     return newval
 
 def execute(ast):
-    #print ast
-    if type(ast) != type(()):
+    #print "AST:", ast
+    if not isinstance(ast, tuple):
         return ast
     if ast[0] == 'Statements':
         execute(ast[1])
@@ -57,18 +61,24 @@ def execute(ast):
         print execute(ast[1])
         return
     if ast[0] == 'If':
+        #print "in If", ast
         if execute(ast[1]) == True: #disallow implicit crap.
             return execute(ast[2])
         return
     if ast[0] == 'IfElse':
+        #print "in IfElse", ast
         if execute(ast[1]) == True:
             return execute(ast[2])
         else:
             return execute(ast[3])
-    if ast[0]=='EQ': return get_val(execute(ast[1])) == get_val(execute(ast[2]))
-    if ast[0]=='NE': return get_val(execute(ast[1])) != get_val(execute(ast[2]))
-    if ast[0]=='GT': return get_val(execute(ast[1])) >  get_val(execute(ast[2]))
-    if ast[0]=='GE': return get_val(execute(ast[1])) >= get_val(execute(ast[2]))
-    if ast[0]=='LT': return get_val(execute(ast[1])) <  get_val(execute(ast[2]))
-    if ast[0]=='LE': return get_val(execute(ast[1])) <= get_val(execute(ast[2]))
+    if ast[0] == 'While':
+        while execute(ast[1]):
+            execute(ast[2])
+        return
+    if ast[0]=='EQ': return execute(ast[1]) == execute(ast[2])
+    if ast[0]=='NE': return execute(ast[1]) != execute(ast[2])
+    if ast[0]=='GT': return execute(ast[1]) >  execute(ast[2])
+    if ast[0]=='GE': return execute(ast[1]) >= execute(ast[2])
+    if ast[0]=='LT': return execute(ast[1]) <  execute(ast[2])
+    if ast[0]=='LE': return execute(ast[1]) <= execute(ast[2])
     print "Unexpected node:", ast
