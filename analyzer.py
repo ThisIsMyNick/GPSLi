@@ -75,6 +75,12 @@ def execute(ast):
         while execute(ast[1]):
             execute(ast[2])
         return
+    if ast[0] == 'For':
+        execute(ast[1])
+        while execute(ast[2]):
+            execute(ast[4])
+            execute(ast[3])
+        return
     if ast[0]=='EQ': return execute(ast[1]) == execute(ast[2])
     if ast[0]=='NE': return execute(ast[1]) != execute(ast[2])
     if ast[0]=='GT': return execute(ast[1]) >  execute(ast[2])

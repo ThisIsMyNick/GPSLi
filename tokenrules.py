@@ -6,6 +6,7 @@ reserved = {
         'if' : 'IF',
         'else' : 'ELSE',
         'while' : 'WHILE',
+        'for' : 'FOR',
 }
 
 tokens = (
@@ -27,6 +28,7 @@ tokens = (
         'IF',
         'ELSE',
         'WHILE',
+        'FOR',
         'SEMICOLON',
         'LPAREN',
         'RPAREN',

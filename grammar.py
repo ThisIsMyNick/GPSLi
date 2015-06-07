@@ -86,6 +86,10 @@ def p_state_while(p):
     '''statement : WHILE LPAREN expression RPAREN LBRACE statement RBRACE'''
     p[0] = ('While', p[3], p[6])
 
+def p_state_for(p):
+    '''statement : FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN LBRACE statement RBRACE'''
+    p[0] = ('For', p[3], p[5], p[7], p[10])
+
 ### Pre/Post Inc/Dec
 
 def p_preinc(p):
