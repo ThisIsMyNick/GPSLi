@@ -7,6 +7,8 @@ reserved = {
         'else' : 'ELSE',
         'while' : 'WHILE',
         'for' : 'FOR',
+        'func' : 'FUNC',
+        'return' : 'RETURN',
 }
 
 tokens = (
@@ -29,6 +31,8 @@ tokens = (
         'ELSE',
         'WHILE',
         'FOR',
+        'FUNC',
+        'RETURN',
         'SEMICOLON',
         'COMMA',
         'LPAREN',

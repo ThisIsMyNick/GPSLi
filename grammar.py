@@ -108,6 +108,36 @@ def p_listitems_null(p):
     '''list-items : '''
     p[0] = ('NullListItem',)
 
+### Functions
+
+def p_funcparams(p):
+    '''func-params : ID COMMA ID'''
+    p[0] = ('FuncParams', p[1], p[3])
+
+def p_funcparam(p):
+    '''func-params : ID'''
+    p[0] = ('FuncParam', p[1])
+
+def p_funcparam_null(p):
+    '''func-params :'''
+    p[0] = ('NullFuncParam',)
+
+def p_funcargs(p):
+    '''func-args : list-items'''
+    p[0] = p[1]
+
+def p_state_funcdef(p):
+    '''statement : FUNC ID LPAREN func-params RPAREN LBRACE statement RBRACE'''
+    p[0] = ('Function', p[2], p[4], p[7])
+
+def p_expr_funccall(p):
+    '''expression : ID LPAREN func-args RPAREN'''
+    p[0] = ('FunctionCall', p[1], p[3])
+
+def p_expr_return(p):
+    '''expression : RETURN expression'''
+    p[0] = ('Return', p[2])
+
 ### Pre/Post Inc/Dec
 
 def p_preinc(p):

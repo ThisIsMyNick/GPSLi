@@ -1,0 +1,6 @@
+func disp(x)
+{
+    print x;
+}
+
+disp(2);
