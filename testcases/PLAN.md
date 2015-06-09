@@ -7,8 +7,8 @@ No plans to support conditional jumps anymore.
 - [x] Stage 2
 - [x] Stage 3
 - [x] Stage 4
-- [ ] Stage 5
-- [ ] Stage 6
+- [x] Stage 5
+- [x] Stage 6
 - [ ] Stage 7
 
 #Stage 1

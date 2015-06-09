@@ -1,30 +1,44 @@
+#TODO: function named pineapple for Alex
 class ReturnValue:
     val = None
     def __init__(self, v):
         self.val = v
 
-scopes = [{}]
+global_scope = {}
+local_scopes = [{}]
 
 def new_scope():
-    scopes.append({})
+    local_scopes.append({})
 
 def exit_scope():
-    scopes.pop()
+    local_scopes.pop()
 
 def get_val(key):
-    if isinstance(key, (int, long, float)): return key
-    for scope in reversed(scopes):
+    if isinstance(key, (int, long, float)): 
+        assert False, "isinstance still needed pls fix"
+        return key
+    """
+    for scope in reversed(local_scopes):
         if key in scope:
             return scope[key]
-    print scopes
+    """
+    if key in local_scopes[-1]:
+        return local_scopes[-1][key]
+    if key in global_scope:
+        return global_scope[key]
     raise KeyError("%s not in scope" % key)
 
 def assign(key, val):
-    for index, scope in enumerate(reversed(scopes)):
-        if key in scope:
-            scopes[len(scopes)-index-1][key] = val
-            return
-    scopes[-1][key] = val
+    if key in local_scopes[-1]:
+        local_scopes[len(local_scopes)-index-1][key] = val
+        return
+    if key in global_scope:
+        global_scope[key] = val
+        return
+    if len(local_scopes) == 1:
+        global_scope[key] = val
+    else:
+        local_scopes[-1][key] = val
 
 def PreInc(x):
     newval = get_val(x) + 1
@@ -79,14 +93,14 @@ def execute(ast):
     if ast[0] == 'If':
         new_scope()
         ret = None
-        if execute(ast[1]) == True: #disallow implicit crap.
+        if execute(ast[1]):
             ret = execute(ast[2])
         exit_scope()
         return ret
     if ast[0] == 'IfElse':
         new_scope()
         ret = None
-        if execute(ast[1]) == True:
+        if execute(ast[1]):
             ret = execute(ast[2])
         else:
             ret = execute(ast[3])
@@ -118,8 +132,8 @@ def execute(ast):
     if ast[0] == 'FunctionCall':
         new_scope()
         params, code = get_val(ast[1])
-        #TODO: nicer error check.
         args = execute(ast[2])
+        #TODO: nicer error check.
         assert len(params) == len(args), "func params/args length conflict."
         for param, arg in zip(params, args):
             assign(param, arg)

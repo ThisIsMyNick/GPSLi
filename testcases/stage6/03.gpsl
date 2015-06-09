@@ -1,0 +1,16 @@
+a = 5;
+
+func inner()
+{
+    b = 5;
+}
+
+func outer()
+{
+    b = 3;
+    inner();
+    print b;
+}
+
+print a;
+outer();
