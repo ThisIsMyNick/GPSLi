@@ -33,7 +33,7 @@ precedence = (
         ('nonassoc', 'PRINT'),
         ('right', 'ASSIGN'),
         ('left', 'PLUS', 'DASH'),
-        ('left', 'STAR', 'SLASH'),
+        ('left', 'STAR', 'SLASH', 'MOD'),
 )
 
 #TODO: better way to separate statements? or nah
@@ -49,11 +49,13 @@ def p_binop_arithmetic(p):
     '''expression : expression PLUS expression
                   | expression DASH expression
                   | expression STAR expression
-                  | expression SLASH expression'''
+                  | expression SLASH expression
+                  | expression MOD expression'''
     if   p[2] == '+': p[0] = ('Add',        p[1], p[3])
     elif p[2] == '-': p[0] = ('Subtract',   p[1], p[3])
     elif p[2] == '*': p[0] = ('Multiply',   p[1], p[3])
-    elif p[2] == '/': p[0] = ('Divide',     p[1],  p[3])
+    elif p[2] == '/': p[0] = ('Divide',     p[1], p[3])
+    elif p[2] == '%': p[0] = ('Modulus',    p[1], p[3])
 
 def p_compare(p):
     '''expression : expression EQUAL expression

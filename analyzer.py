@@ -67,6 +67,8 @@ def execute(ast):
         return execute(ast[1]) * execute(ast[2])
     if ast[0] == 'Divide':
         return execute(ast[1]) / execute(ast[2])
+    if ast[0] == 'Modulus':
+        return execute(ast[1]) % execute(ast[2])
     if ast[0] == 'PreInc':
         return PreInc(execute(ast[1]))
     if ast[0] == 'PreDec':

@@ -16,6 +16,7 @@ tokens = (
         'DASH',
         'STAR',
         'SLASH',
+        'MOD',
         'ASSIGN',
         'EQUAL',
         'NEQUAL',
@@ -47,6 +48,7 @@ t_PLUS = r'\+'
 t_DASH = r'-'
 t_STAR = r'\*'
 t_SLASH = r'/'
+t_MOD = r'%'
 t_EQUAL = r'=='
 t_NEQUAL = r'!='
 t_GT = r'>'
