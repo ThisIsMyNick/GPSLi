@@ -10,6 +10,7 @@ precedence = (
         ('nonassoc', 'PRINT'),
         ('right', 'ASSIGN'),
         ('left', 'AND', 'OR', 'XOR'),
+        ('left', 'EQUAL', 'NEQUAL', 'GT', 'GE', 'LT', 'LE'),
         ('right', 'NOT'),
         ('left', 'PLUS', 'DASH'),
         ('left', 'STAR', 'SLASH', 'MOD'),
