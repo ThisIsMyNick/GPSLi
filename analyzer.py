@@ -30,7 +30,7 @@ def get_val(key):
 
 def assign(key, val):
     if key in local_scopes[-1]:
-        local_scopes[len(local_scopes)-index-1][key] = val
+        local_scopes[-1][key] = val
         return
     if key in global_scope:
         global_scope[key] = val
@@ -105,34 +105,26 @@ def execute(ast):
         print execute(ast[1])
         return
     if ast[0] == 'If':
-        new_scope()
         ret = None
         if execute(ast[1]):
             ret = execute(ast[2])
-        exit_scope()
         return ret
     if ast[0] == 'IfElse':
-        new_scope()
         ret = None
         if execute(ast[1]):
             ret = execute(ast[2])
         else:
             ret = execute(ast[3])
-        exit_scope()
         return ret
     if ast[0] == 'While':
-        new_scope()
         while execute(ast[1]):
             execute(ast[2])
-        exit_scope()
         return
     if ast[0] == 'For':
-        new_scope()
         execute(ast[1])
         while execute(ast[2]):
             execute(ast[4])
             execute(ast[3])
-        exit_scope()
         return
     if ast[0] == 'FuncParams':
         return [ast[1], ast[2]]

@@ -92,7 +92,7 @@ def t_ID(t):
     t.type = reserved.get(t.value, 'ID')
     return t
 
-t_ANY_ignore = ' \n\t\f\v'
+t_ANY_ignore = ' \n\r\t\f\v'
 
 def t_error(t):
     print "Unrecognized character '%s'at line %d" % (t.value[0], t.lineno)
