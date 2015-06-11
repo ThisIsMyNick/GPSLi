@@ -75,8 +75,20 @@ def execute(ast):
         return PreDec(execute(ast[1]))
     if ast[0] == 'NumToExpr':
         return execute(ast[1])
+    if ast[0] == 'BoolToExpr':
+        if ast[1] == 'true': return True
+        if ast[1] == 'false': return False
+        assert False, "bool neither true not false"
     if ast[0] == 'IDToExpr':
         return get_val(execute(ast[1]))
+    if ast[0] == 'And':
+        return execute(ast[1]) and execute(ast[2])
+    if ast[0] == 'Or':
+        return execute(ast[1]) or execute(ast[2])
+    if ast[0] == 'Xor':
+        return bool(execute(ast[1])) != bool(execute(ast[2]))
+    if ast[0] == 'Not':
+        return not bool(execute(ast[1]))
     if ast[0] == 'List':
         return execute(ast[1])
     if ast[0] == 'ListItems':

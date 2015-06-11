@@ -9,6 +9,8 @@ reserved = {
         'for' : 'FOR',
         'func' : 'FUNC',
         'return' : 'RETURN',
+        'true' : 'TRUE',
+        'false' : 'FALSE',
 }
 
 tokens = (
@@ -24,6 +26,12 @@ tokens = (
         'GE',
         'LT',
         'LE',
+        'TRUE',
+        'FALSE',
+        'AND',
+        'OR',
+        'XOR',
+        'NOT',
         'ID',
         'FLOAT',
         'INT',
@@ -55,6 +63,10 @@ t_GT = r'>'
 t_GE = r'>='
 t_LT = r'<'
 t_LE = r'<='
+t_AND = r'&&'
+t_OR = r'\|\|'
+t_XOR = r'\^'
+t_NOT = r'!'
 t_ASSIGN = r'='
 t_SEMICOLON = r';'
 t_COMMA = r','
