@@ -14,6 +14,7 @@ precedence = (
         ('right', 'NOT'),
         ('left', 'PLUS', 'DASH'),
         ('left', 'STAR', 'SLASH', 'MOD'),
+        ('right', 'UPLUS', 'UMINUS'),
 )
 
 #TODO: better way to separate statements? or nah
@@ -66,6 +67,12 @@ def p_binop_bool(p):
 def p_unop_bool(p):
     '''expression : NOT expression'''
     if p[1] == '!': p[0] = ('Not', p[2])
+
+def p_unop_sign(p):
+    '''expression : PLUS expression %prec UPLUS
+                  | DASH expression %prec UMINUS'''
+    if   p[1] == '+': p[0] = ('UPlus',  p[2])
+    elif p[1] == '-': p[0] = ('UMinus', p[2])
 
 ### Conditional
 

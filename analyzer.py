@@ -73,6 +73,10 @@ def execute(ast):
         return PreInc(execute(ast[1]))
     if ast[0] == 'PreDec':
         return PreDec(execute(ast[1]))
+    if ast[0] == 'UPlus':
+        return execute(ast[1])
+    if ast[0] == 'UMinus':
+        return -execute(ast[1])
     if ast[0] == 'NumToExpr':
         return execute(ast[1])
     if ast[0] == 'BoolToExpr':
