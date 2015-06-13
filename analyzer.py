@@ -1,3 +1,6 @@
+from os import path
+import shared
+
 #TODO: function named pineapple for Alex
 class ReturnValue:
     val = None
@@ -39,6 +42,20 @@ def assign(key, val):
         global_scope[key] = val
     else:
         local_scopes[-1][key] = val
+
+def include(lib):
+    lib += ".gpsl"
+    f = None
+    try:
+        f = open(path.join(path.dirname(shared.filename), lib))
+    except IOError:
+        try:
+            f = open(path.join(path.dirname(path.realpath(__file__)), "stdlib", lib))
+        except IOError as e:
+            print "[ERROR]: No file named %s." % lib
+            raise e
+    ast = shared.parser.parse(f.read())
+    execute(ast)
 
 def PreInc(x):
     newval = get_val(x) + 1
@@ -107,6 +124,9 @@ def execute(ast):
         val = execute(ast[2])
         assign(ast[1], val)
         return val
+    if ast[0] == 'Include':
+        include(ast[1])
+        return
     if ast[0] == 'Print':
         print execute(ast[1])
         return

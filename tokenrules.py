@@ -11,6 +11,7 @@ reserved = {
         'return' : 'RETURN',
         'true' : 'TRUE',
         'false' : 'FALSE',
+        'include' : 'INCLUDE',
 }
 
 tokens = (
@@ -51,6 +52,7 @@ tokens = (
         'RBRACE',
         'LBRACKET',
         'RBRACKET',
+        'INCLUDE',
 )
 
 t_PLUS = r'\+'

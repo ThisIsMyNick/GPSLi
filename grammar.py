@@ -179,6 +179,14 @@ def p_expr_assign(p):
     '''expression : ID ASSIGN expression'''
     p[0] = ('Assign', p[1], p[3])
 
+# Modules
+
+def p_expr_include(p):
+    'expression : INCLUDE STRING'
+    p[0] = ('Include', p[2])
+
+#General
+
 def p_print(p):
     '''expression : PRINT expression'''
     p[0] = ('Print', p[2])
