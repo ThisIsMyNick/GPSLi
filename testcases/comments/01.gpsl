@@ -1,0 +1,7 @@
+// hi guys ok so this sets a equal to 5
+a = 5;
+
+/*
+Generated syntax tree:
+('Statement', ('Assign', 'a', ('NumToExpr', 5)))
+*/

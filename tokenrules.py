@@ -98,6 +98,10 @@ def t_STRING(t):
     t.value = t.value[1:-1] #strip quotes
     return t
 
+def t_COMMENT(t):
+    r'/\*(.|\n)*\*/|//.*'
+    pass
+
 t_ANY_ignore = ' \n\r\t\f\v'
 
 def t_error(t):
