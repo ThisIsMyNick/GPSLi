@@ -1,5 +1,6 @@
 from os import path
 import shared
+import builtins
 
 #TODO: function named pineapple for Alex
 class ReturnValue:
@@ -64,6 +65,8 @@ def include(lib):
     execute(ast, lib)
 
 def FunctionCall(funcname, args, module=None):
+    if funcname in builtins.functions:
+        return builtins.functions[funcname](*execute(args))
     new_scope()
     params, code = get_val(funcname, module)
     args = execute(args)
@@ -155,6 +158,8 @@ def execute(ast, module=None):
         return [execute(ast[1], module)]
     if ast[0] == 'NullListItem':
         return []
+    if ast[0] == 'ListIndex':
+        return execute(ast[1])[execute(ast[2])]
     if ast[0] == 'Assign':
         val = execute(ast[2], module)
         assign(ast[1], val, module)

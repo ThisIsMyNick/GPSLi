@@ -1,0 +1,18 @@
+strs = 
+[
+    [" bottles of beer on the wall, ", " bottles of beer."],
+    ["Take one down and pass it around, ", " bottles of beer on the wall."]
+];
+
+for (bottles = 99; bottles > 1; --bottles)
+{
+    print str(bottles) + strs[0][0] + str(bottles) + strs[0][1];
+    print strs[1][0] + str(bottles-1) + strs[1][1];
+    print "";
+}
+
+print "1 bottle of beer on the wall, 1 bottle of beer.";
+print "Take one down and pass it around, no more bottles of beer on the wall.";
+print "";
+print "No more bottles of beer on the wall, no more bottles of beer.";
+print "Go to the store and buy some more, 99 bottles of beer on the wall.";

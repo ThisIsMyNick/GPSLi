@@ -15,6 +15,7 @@ precedence = (
         ('left', 'PLUS', 'DASH'),
         ('left', 'STAR', 'SLASH', 'MOD'),
         ('right', 'UPLUS', 'UMINUS'),
+        ('right', 'LBRACKET', 'RBRACKET'),
 )
 
 #TODO: better way to separate statements? or nah
@@ -112,6 +113,10 @@ def p_listitem(p):
 def p_listitems_null(p):
     '''list-items : '''
     p[0] = ('NullListItem',)
+
+def p_expr_listindex(p):
+    '''expression : expression LBRACKET expression RBRACKET'''
+    p[0] = ('ListIndex', p[1], p[3])
 
 ### Functions
 
