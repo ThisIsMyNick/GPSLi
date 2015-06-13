@@ -7,7 +7,7 @@ tokens = tokenrules.tokens
 precedence = (
         #(associativity, tokens...)
         ('left', 'SEMICOLON'),
-        ('nonassoc', 'PRINT'),
+        ('nonassoc', 'PRINT', 'RETURN',),
         ('right', 'ASSIGN'),
         ('left', 'AND', 'OR', 'XOR'),
         ('left', 'EQUAL', 'NEQUAL', 'GT', 'GE', 'LT', 'LE'),
@@ -157,6 +157,10 @@ def p_expr_bool(p):
     '''expression : TRUE
                   | FALSE'''
     p[0] = ('BoolToExpr', p[1])
+
+def p_expr_str(p):
+    'expression : STRING'
+    p[0] = ('StrToExpr', p[1])
 
 ### ID
 

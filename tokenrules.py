@@ -33,6 +33,7 @@ tokens = (
         'XOR',
         'NOT',
         'ID',
+        'STRING',
         'FLOAT',
         'INT',
         'PRINT',
@@ -90,6 +91,11 @@ def t_INT(t):
 def t_ID(t):
     r'[a-zA-Z_][a-zA-Z0-9?]*'
     t.type = reserved.get(t.value, 'ID')
+    return t
+
+def t_STRING(t):
+    r'"[^"]*"'
+    t.value = t.value[1:-1] #strip quotes
     return t
 
 t_ANY_ignore = ' \n\r\t\f\v'

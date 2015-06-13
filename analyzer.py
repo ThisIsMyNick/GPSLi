@@ -79,6 +79,8 @@ def execute(ast):
         if ast[1] == 'true': return True
         if ast[1] == 'false': return False
         assert False, "bool neither true not false"
+    if ast[0] == 'StrToExpr':
+        return ast[1]
     if ast[0] == 'IDToExpr':
         return get_val(execute(ast[1]))
     if ast[0] == 'And':
