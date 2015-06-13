@@ -194,4 +194,5 @@ def p_print(p):
 def p_error(p):
     if p:
         #TODO: does this line # thing work?
+        # apparently not
         print "Syntax error at '%s' in line %d" % (p.value, p.lineno)

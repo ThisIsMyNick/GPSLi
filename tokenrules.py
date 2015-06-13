@@ -53,6 +53,7 @@ tokens = (
         'LBRACKET',
         'RBRACKET',
         'INCLUDE',
+        'DOT',
 )
 
 t_PLUS = r'\+'
@@ -79,6 +80,7 @@ t_LBRACE = r'{'
 t_RBRACE = r'}'
 t_LBRACKET = r'\['
 t_RBRACKET = r'\]'
+t_DOT = r'\.'
 
 def t_FLOAT(t):
     r'\d+\.\d*'
@@ -91,7 +93,7 @@ def t_INT(t):
     return t
 
 def t_ID(t):
-    r'[a-zA-Z_][a-zA-Z0-9?]*'
+    r'[a-zA-Z_][a-zA-Z0-9?]*(\.[a-zA-Z_][a-zA-Z0-9?]*)?'
     t.type = reserved.get(t.value, 'ID')
     return t
 
