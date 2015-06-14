@@ -95,6 +95,10 @@ def get_id(ID):
 def get_id_mod(ID):
     return (get_id(ID), get_module(ID))
 
+def flatten(L):
+    if len(L) < 2: return L
+    return [L[0]] + flatten(L[1])
+
 def PreInc(x, module):
     newval = get_val(x, module) + 1
     assign(x, newval, module)
@@ -150,9 +154,6 @@ def execute(ast, module=None):
     if ast[0] == 'Not':
         return not bool(execute(ast[1], module))
     if ast[0] == 'List':
-        def flatten(L):
-            if len(L) < 2: return L
-            return [L[0]] + flatten(L[1])
         return flatten(execute(ast[1], module))
     if ast[0] == 'ListItems':
         return [execute(ast[1], module), execute(ast[2], module)]
@@ -195,16 +196,18 @@ def execute(ast, module=None):
             execute(ast[3], module)
         return
     if ast[0] == 'FuncParams':
-        return [ast[1], ast[2]]
+        return [execute(ast[1]), execute(ast[2])]
     if ast[0] == 'FuncParam':
         return [ast[1]]
     if ast[0] == 'NullFuncParam':
         return []
     if ast[0] == 'Function':
-        assign(ast[1], (execute(ast[2], module), ast[3]), module)
+        assign(ast[1], (flatten(execute(ast[2], module)), ast[3]), module)
         return
     if ast[0] == 'FunctionCall':
         return FunctionCall(ast[1], ast[2], module)
+    if ast[0] == 'Args':
+        return flatten(execute(ast[1]))
     if ast[0] == 'Return':
         raise ReturnValue(execute(ast[1], module))
     if ast[0]=='EQ': return execute(ast[1], module) == execute(ast[2], module)

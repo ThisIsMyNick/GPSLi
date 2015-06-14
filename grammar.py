@@ -121,7 +121,7 @@ def p_expr_listindex(p):
 ### Functions
 
 def p_funcparams(p):
-    '''func-params : ID COMMA ID'''
+    '''func-params : ID COMMA func-params'''
     p[0] = ('FuncParams', p[1], p[3])
 
 def p_funcparam(p):
@@ -134,7 +134,7 @@ def p_funcparam_null(p):
 
 def p_funcargs(p):
     '''func-args : list-items'''
-    p[0] = p[1]
+    p[0] = ('Args', p[1])
 
 def p_state_funcdef(p):
     '''statement : FUNC ID LPAREN func-params RPAREN LBRACE statement RBRACE'''
