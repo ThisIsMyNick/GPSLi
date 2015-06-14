@@ -33,7 +33,7 @@ if __name__ == '__main__':
 	if 'code' in query:
 		import urllib
 		code = urllib.unquote(query['code'].value)
-                print code
+                #print code
                 print "Content-Type: text/html\r\n\r"
 		print "<!DOCTYPE html>"
 		print "<html>"

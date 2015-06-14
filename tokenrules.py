@@ -106,7 +106,11 @@ def t_COMMENT(t):
     r'/\*(.|\n)*\*/|//.*'
     pass
 
-t_ANY_ignore = ' \n\r\t\f\v'
+def t_NEWLINE(t):
+    r'\n+'
+    t.lexer.lineno += len(t.value)
+
+t_ANY_ignore = ' \r\t\f\v'
 
 def t_error(t):
     print "Unrecognized character '%s'at line %d" % (t.value[0], t.lineno)

@@ -51,7 +51,7 @@ def assign(key, val, module=None):
         local_scopes[-1][key] = val
 
 def include(lib):
-    libg = lib + ".gpsl"
+    libg = lib + ".lgpsl"
     f = None
     try:
         f = open(path.join(path.dirname(shared.filename), libg))
@@ -67,16 +67,16 @@ def include(lib):
 def FunctionCall(funcname, args, module=None):
     if funcname in builtins.functions:
         return builtins.functions[funcname](*execute(args))
-    new_scope()
     params, code = get_val(funcname, module)
     args = execute(args)
+    new_scope()
     #TODO: nicer error check.
-    assert len(params) == len(args)
+    assert len(params) == len(args), "Param/arg length conflict."
     for param, arg in zip(params, args):
         assign(param, arg, module)
     ret = None
     try:
-        execute(code)
+        execute(code, module)
     except ReturnValue as r:
         ret = r.val
     exit_scope()
@@ -137,7 +137,6 @@ def execute(ast, module=None):
     if ast[0] == 'BoolToExpr':
         if ast[1] == 'true': return True
         if ast[1] == 'false': return False
-        assert False, "bool neither true not false"
     if ast[0] == 'StrToExpr':
         return ast[1]
     if ast[0] == 'IDToExpr':
@@ -151,7 +150,10 @@ def execute(ast, module=None):
     if ast[0] == 'Not':
         return not bool(execute(ast[1], module))
     if ast[0] == 'List':
-        return execute(ast[1], module)
+        def flatten(L):
+            if len(L) < 2: return L
+            return [L[0]] + flatten(L[1])
+        return flatten(execute(ast[1], module))
     if ast[0] == 'ListItems':
         return [execute(ast[1], module), execute(ast[2], module)]
     if ast[0] == 'ListItem':
@@ -202,7 +204,7 @@ def execute(ast, module=None):
         assign(ast[1], (execute(ast[2], module), ast[3]), module)
         return
     if ast[0] == 'FunctionCall':
-        return FunctionCall(ast[1], ast[2])
+        return FunctionCall(ast[1], ast[2], module)
     if ast[0] == 'Return':
         raise ReturnValue(execute(ast[1], module))
     if ast[0]=='EQ': return execute(ast[1], module) == execute(ast[2], module)

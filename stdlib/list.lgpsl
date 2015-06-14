@@ -1,0 +1,21 @@
+func head(L)
+{
+    return L[0];
+}
+func tail(L)
+{
+    newL = [];
+    len = list.length(L);
+    for (i = 1; i < len; ++i)
+    {
+        newL = newL + [L[i]];
+    }
+    return newL;
+}
+
+func sum(L)
+{
+    if (list.length(L) == 0) {return 0;}
+    if (list.length(L) == 1) {return L[0];}
+    return L[0] + sum(tail(L));
+}

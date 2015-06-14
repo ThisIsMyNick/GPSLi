@@ -103,7 +103,7 @@ def p_expr_list(p):
     p[0] = ('List', p[2])
 
 def p_listitems(p):
-    '''list-items : expression COMMA expression'''
+    '''list-items : expression COMMA list-items'''
     p[0] = ('ListItems', p[1], p[3])
 
 def p_listitem(p):
