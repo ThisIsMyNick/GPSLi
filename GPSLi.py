@@ -30,19 +30,11 @@ if __name__ == '__main__':
     else:
 	import cgi
 	query = cgi.FieldStorage()
+        print "Content-Type: text/plain\r\n\r"
 	if 'code' in query:
 		import urllib
 		code = urllib.unquote(query['code'].value)
                 #print code
-                print "Content-Type: text/html\r\n\r"
-		print "<!DOCTYPE html>"
-		print "<html>"
-		print "<head><title>1337 interpreter</title></head>"
-		print "<body>"
-		print "<p>"
 		main(code)
-		print "</p>"
-		print "</body>"
-		print "</html>"
 	else:
 		print "No code field :C"
