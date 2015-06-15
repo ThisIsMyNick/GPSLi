@@ -27,6 +27,11 @@ $ python GPSLi.py
 #2
 ```
 
+###Modules
+Modules have the ".lgpsl" ending.
+To include module `examplemod.lgpsl`, just write `include "examplemod";`
+To refer to something X defined in a module M, write `M.X`.
+
 ###Learning
 Look through the tests/ and examples/ folder to learn the syntax.
 Please note that pre-increment and decrement (++var;) are supported but post-increment and decrement are NOT (var++; //ERROR).
